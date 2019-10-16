@@ -3,6 +3,7 @@
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new Username("Hellow@ho"));
+        PhoneNumber p = new PhoneNumberUS("200", "3523540");
+        System.out.println(p);
     }
 }

@@ -3,7 +3,7 @@
  */
 public class Main {
     public static void main(String[] args) {
-        PhoneNumber p = new PhoneNumberUS("200", "3523540");
+        PhoneNumber p = new PhoneNumberUS("80");
         System.out.println(p);
     }
 }

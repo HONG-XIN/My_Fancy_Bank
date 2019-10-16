@@ -7,6 +7,28 @@ public class PhoneNumberUS extends PhoneNumber {
         super(COUNTRYCODE, areaCode, phoneNumber);
     }
 
+    public PhoneNumberUS(String phone) {
+        this();
+        checkPhone(phone);
+        setAreaCode(phone.substring(0,3));
+        setPhoneNumber(phone.substring(3));
+    }
+
+    /**
+     * default phone number is set to be (200)000-0000
+     */
+    public PhoneNumberUS() {
+        this("200", "0000000");
+    }
+
+    // private check function
+    private void checkPhone(String phone) {
+        if (phone.length() != 10) {
+            String alert = String.format("Phone \"%s\" is not a valid number.", phone);
+            throw new IllegalArgumentException(alert);
+        }
+    }
+
     // override function
     /**
      * must between 200 and 999

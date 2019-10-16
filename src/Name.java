@@ -1,5 +1,3 @@
-package model.people;
-
 /**
  * Record the name attributes of a person
  */

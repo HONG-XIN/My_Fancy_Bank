@@ -3,6 +3,6 @@
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new Password("Hellowo2rld@ho"));
+        System.out.println(new Username("Hellow@ho"));
     }
 }

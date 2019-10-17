@@ -22,6 +22,12 @@ public class BankAccount {
         type = "";
     }
 
+    public BankAccount(int day, int month, int year, String currency) {
+        this();
+        setCurrency(currency);
+        setOpenDate(day, month, year);
+    }
+
     // accessor functions
     public String getRoutingNumber() {
         return routingNumber.getCode();

@@ -10,5 +10,4 @@ public class BankNumberRouting extends BankNumber {
     public BankNumberRouting() {
         super();
     }
-
 }

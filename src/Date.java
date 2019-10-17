@@ -19,9 +19,7 @@ public class Date {
      * The order makes sure that when assigning day, year and month must be existing
      */
     public Date(int day, int month, int year) {
-        setYear(year);
-        setMonth(month);
-        setDay(day);
+        setDate(day, month, year);
     }
 
     public Date() {
@@ -42,6 +40,12 @@ public class Date {
     }
 
     // mutator functions
+    public void setDate(int day, int month, int year) {
+        setYear(year);
+        setMonth(month);
+        setDay(day);
+    }
+
     public void setDay(int day) {
         checkDay(day, month, year);
         this.day = day;

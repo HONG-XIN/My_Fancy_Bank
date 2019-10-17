@@ -3,8 +3,8 @@
  */
 public class Main {
     public static void main(String[] args) {
-        Member p = new Member();
-        p.setNickName("Jason");
-        System.out.println(p.getAddress());
+        Money p = new Money();
+        p.setCurrency("CurrencyJP");
+        System.out.println(p.getCurrency());
     }
 }

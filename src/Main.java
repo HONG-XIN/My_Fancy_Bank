@@ -3,7 +3,7 @@
  */
 public class Main {
     public static void main(String[] args) {
-        PhoneNumber p = new PhoneNumberUS("80");
-        System.out.println(p);
+        AddressUS p = new AddressUS();
+        p.checkZipCode("03323");
     }
 }

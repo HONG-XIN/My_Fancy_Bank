@@ -1,8 +1,11 @@
+/**
+ * US phone number
+ */
 public class PhoneNumberUS extends PhoneNumber {
     // private static final variables
     private static final String COUNTRYCODE = "1";
 
-    // constructor
+    // constructors
     public PhoneNumberUS(String areaCode, String phoneNumber) {
         super(COUNTRYCODE, areaCode, phoneNumber);
     }
@@ -29,7 +32,7 @@ public class PhoneNumberUS extends PhoneNumber {
         }
     }
 
-    // override function
+    // override functions
     /**
      * must between 200 and 999
      */

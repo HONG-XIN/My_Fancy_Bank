@@ -3,7 +3,8 @@
  */
 public class Main {
     public static void main(String[] args) {
-        AddressUS p = new AddressUS();
-        p.checkZipCode("03323");
+        Member p = new Member();
+        p.setNickName("Jason");
+        System.out.println(p.getAddress());
     }
 }

@@ -117,4 +117,12 @@ public class Date {
             return false;
         }
     }
+
+    // override function
+    @Override
+    public String toString() {
+        String dateFormat = "%s/%s/%s";
+        String date = String.format(dateFormat, day, month, year);
+        return date;
+    }
 }

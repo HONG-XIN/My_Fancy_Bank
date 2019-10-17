@@ -39,6 +39,8 @@ public abstract class PhoneNumber {
     }
 
     // abstract function
+    public abstract void setPhone(String phone);
+
     public abstract void checkAreaCode(String areaCode);
 
     public abstract void checkPhoneNumber(String phoneNumber);

@@ -46,4 +46,16 @@ public class AddressUS extends Address {
             throw new IllegalArgumentException(alert);
         }
     };
+
+    // override function
+    @Override
+    public String toString() {
+        String address = getAddress1();
+        address += " " + getAddress2();
+        address += " " + getCity();
+        address += " " + getState();
+        address += " " + getZipCode();
+        address += " " + getCountry();
+        return address.trim();
+    }
 }

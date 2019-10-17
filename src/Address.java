@@ -55,6 +55,18 @@ public abstract class Address {
     }
 
     // mutator functions
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public void setState(String state) {
         checkState(state);
         this.state = state;

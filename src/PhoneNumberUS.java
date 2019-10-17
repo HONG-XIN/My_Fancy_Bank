@@ -12,9 +12,7 @@ public class PhoneNumberUS extends PhoneNumber {
 
     public PhoneNumberUS(String phone) {
         this();
-        checkPhone(phone);
-        setAreaCode(phone.substring(0,3));
-        setPhoneNumber(phone.substring(3));
+        setPhone(phone);
     }
 
     /**
@@ -22,6 +20,13 @@ public class PhoneNumberUS extends PhoneNumber {
      */
     public PhoneNumberUS() {
         this("200", "0000000");
+    }
+
+    // mutator function
+    public void setPhone(String phone) {
+        checkPhone(phone);
+        setAreaCode(phone.substring(0,3));
+        setPhoneNumber(phone.substring(3));
     }
 
     // private check function

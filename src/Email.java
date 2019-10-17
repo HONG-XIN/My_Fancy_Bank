@@ -17,10 +17,7 @@ public class Email {
 
     public Email(String email) {
         this();
-        checkEmail(email);
-        String[] emailSplit = email.split("@");
-        setLocalPart(emailSplit[0]);
-        setDomain(emailSplit[1]);
+        setEmail(email);
     }
 
     public Email() {
@@ -28,6 +25,12 @@ public class Email {
     }
 
     // mutator functions
+    public void setEmail(String email) {
+        checkEmail(email);
+        String[] emailSplit = email.split("@");
+        setLocalPart(emailSplit[0]);
+        setDomain(emailSplit[1]);
+    }
 
     public void setLocalPart(String localPart) {
         checkLocalPart(localPart);

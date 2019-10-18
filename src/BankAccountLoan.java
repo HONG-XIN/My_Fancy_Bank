@@ -3,8 +3,8 @@
  */
 public class BankAccountLoan extends BankAccount implements BankAccountTypes {
     // constructor
-    public BankAccountLoan(int day, int month, int year, String currency) {
-        super(day, month, year, currency);
+    public BankAccountLoan(String currency) {
+        super(currency);
         setType(LOAN);
     }
 }

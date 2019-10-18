@@ -5,8 +5,8 @@ public class BankTransaction {
     // instance variables with private access
     private Date transactionDate;
     private Currency currency;
-    private float amount;
-    private float available;
+    private double amount;
+    private double available;
     private String from;
     private String to;
 
@@ -21,11 +21,11 @@ public class BankTransaction {
     }
 
     // accessor functions
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public float getAvailable() {
+    public double getAvailable() {
         return available;
     }
 
@@ -51,11 +51,11 @@ public class BankTransaction {
         }
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public void setAvailable(float available) {
+    public void setAvailable(double available) {
         this.available = available;
     }
 

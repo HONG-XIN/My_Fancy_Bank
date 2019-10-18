@@ -1,7 +1,7 @@
 /**
  * stand for a bank account
  */
-public class BankAccount {
+public class BankAccount implements BankAccountTypes {
     // instance variables with private access
     private BankNumberRouting routingNumber;
     private BankNumberAccount accountNumber;
@@ -22,9 +22,13 @@ public class BankAccount {
         type = "";
     }
 
-    public BankAccount(int day, int month, int year, String currency) {
+    public BankAccount(String currency) {
         this();
         setCurrency(currency);
+    }
+
+    // open function
+    public void open(int day, int month, int year) {
         setOpenDate(day, month, year);
     }
 
@@ -37,8 +41,12 @@ public class BankAccount {
         return accountNumber.getCode();
     }
 
-    public float getBalance() {
+    public double getBalance() {
         return balance.getAmount();
+    }
+
+    public String getCurrencyAbbr() {
+        return balance.getCurrencyAbbr();
     }
 
     public String getCurrency() {
@@ -66,7 +74,7 @@ public class BankAccount {
         accountNumber.setCode(code);
     }
 
-    public void setBalance(float amount) {
+    public void setBalance(double amount) {
         balance.setAmount(amount);
     }
 
@@ -74,14 +82,14 @@ public class BankAccount {
         balance.setCurrency(currency);
     }
 
-    public void addOneTransaction(int day, int month, int year, float amount, String from, String to) {
+    public void addOneTransaction(int day, int month, int year, double amount, String from, String to) {
         checkFromTo(from, to);
         if (!from.equals("")) {
-            float available = getBalance() + amount;
+            double available = getBalance() + amount;
             transactions.addNewTransaction(day, month, year, getCurrency(), amount, available, from , to);
             addBalance(amount);
         } else {
-            float available = getBalance() - amount;
+            double available = getBalance() - amount;
             transactions.addNewTransaction(day, month, year, getCurrency(), amount, available, from , to);
             deductBalance(amount);
         }
@@ -101,11 +109,11 @@ public class BankAccount {
     }
 
     // change functions
-    public void addBalance(float value) {
+    public void addBalance(double value) {
         balance.addAmount(value);
     }
 
-    public void deductBalance(float value) {
+    public void deductBalance(double value) {
         balance.deductAmount(value);
     }
 

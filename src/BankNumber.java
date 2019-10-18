@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * 9 digit code
  */
@@ -25,7 +27,7 @@ public class BankNumber {
         this.code = code;
     }
 
-    // check method
+    // check function
     private void checkCode(String code) {
         try {
             if (code.length() != 9)
@@ -37,5 +39,13 @@ public class BankNumber {
             String alert = String.format("\"%s\" is not valid bank routing number.", code);
             throw new IllegalArgumentException(alert);
         }
+    }
+
+    // generate function
+    public static String generateRandomNumber() {
+        Random rand = new Random();
+        int numberInt = rand.nextInt(1000000000);
+        String number = String.valueOf(numberInt);
+        return number;
     }
 }

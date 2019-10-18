@@ -1,19 +1,24 @@
 /**
  * stand for a checking bank account
  */
-public class BankAccountChecking extends BankAccount implements BankAccountTypes {
+public class BankAccountChecking extends BankAccount {
     // constructor
-    public BankAccountChecking(int day, int month, int year, String currency) {
-        super(day, month, year, currency);
+    public BankAccountChecking(String currency) {
+        super(currency);
         setType(CHECKING);
     }
 
-    // change functions
-    public void deposit(int day, int month, int year, float value) {
+    // transaction functions
+    public void deposit(int day, int month, int year, double value) {
         addOneTransaction(day, month, year, value, "Customer", "");
     }
 
-    public void withdraw(int day, int month, int year, float value) {
+    public void withdraw(int day, int month, int year, double value) {
         addOneTransaction(day, month, year, value, "", "Customer");
+    }
+
+    // check function
+    public void checkEligibleOpen(double value) {
+
     }
 }

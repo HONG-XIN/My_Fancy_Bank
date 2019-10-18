@@ -13,8 +13,8 @@ public class BankTransactionsHistory {
     }
 
     // mutator function
-    public void addNewTransaction(int day, int month, int year, String currency, float amount,
-                                  float available, String from, String to) {
+    public void addNewTransaction(int day, int month, int year, String currency, double amount,
+                                  double available, String from, String to) {
         BankTransaction t = new BankTransaction();
         t.setTransactionDate(day, month, year);
         t.setCurrency(currency);

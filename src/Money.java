@@ -4,10 +4,10 @@
 public class Money {
     // instance variables with private access
     private Currency currency;
-    private float amount;
+    private double amount;
 
     // constructor
-    public Money(String currency, float amount) {
+    public Money(String currency, double amount) {
         setCurrency(currency);
         setAmount(amount);
     }
@@ -20,11 +20,15 @@ public class Money {
     }
 
     // accessor functions
+    public String getCurrencyAbbr() {
+        return currency.getAbbr();
+    }
+
     public String getCurrency() {
         return currency.toString();
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -38,16 +42,16 @@ public class Money {
         }
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
     // change functions
-    public void addAmount(float value) {
+    public void addAmount(double value) {
         amount += value;
     }
 
-    public void deductAmount(float value) {
+    public void deductAmount(double value) {
         amount -= value;
     }
 }

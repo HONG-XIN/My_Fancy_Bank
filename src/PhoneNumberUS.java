@@ -19,7 +19,7 @@ public class PhoneNumberUS extends PhoneNumber {
      * default phone number is set to be (200)000-0000
      */
     public PhoneNumberUS() {
-        this("200", "0000000");
+        super(COUNTRYCODE);
     }
 
     // mutator function
@@ -74,8 +74,13 @@ public class PhoneNumberUS extends PhoneNumber {
 
     @Override
     public String toString() {
+        if (getAreaCode().equals(""))
+            return "";
         String phoneNumberFormat = "+%s (%s)%s-%s";
         String phoneNumber = String.format(phoneNumberFormat, COUNTRYCODE, getAreaCode(),
+                getPhoneNumber().substring(0, 3), getPhoneNumber().substring(3));
+        phoneNumberFormat = "(%s)%s-%s";
+        phoneNumber = String.format(phoneNumberFormat, getAreaCode(),
                 getPhoneNumber().substring(0, 3), getPhoneNumber().substring(3));
         return phoneNumber;
     }

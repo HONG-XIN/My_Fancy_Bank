@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -11,8 +12,8 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
     private JLabel feedbackLabel;
 
     // constructor
-    public GUIBankLoginPanelLoginEvent(GUIBankATMFrame frame) {
-        super(frame);
+    public GUIBankLoginPanelLoginEvent(GUIBankATMFrame frame, Bank bank) {
+        super(frame, bank);
     }
 
     // mutator functions
@@ -31,11 +32,15 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
     // primary functions
     public void actionPerformed(ActionEvent e) {
         System.out.println("LOGIN button clicked.");
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        if (username.equals("admin") && password.equals("admin"))
-            feedbackLabel.setText("Passed!");
-        else
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        Bank bank = getBank();
+        if (bank.memberLogin(username, password)) {
+            feedbackLabel.setText("Success!");
+            feedbackLabel.setForeground(Color.GREEN);
+        } else {
             feedbackLabel.setText("Invalid password!");
+            feedbackLabel.setForeground(Color.RED);
+        }
     }
 }

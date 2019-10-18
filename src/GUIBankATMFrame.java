@@ -1,12 +1,15 @@
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * the main window for bank ATM
  */
 public class GUIBankATMFrame extends JFrame {
+    // instance variable with private access
+    private Bank bank;
+
     // constructor
-    public GUIBankATMFrame() {
+    public GUIBankATMFrame(Bank bank) {
+        this.bank = bank;
         setAttributes();
     }
 
@@ -32,13 +35,13 @@ public class GUIBankATMFrame extends JFrame {
     // show contents
     public void showLogin() {
         clear();
-        add(new GUIBankLoginPanel(this));
+        add(new GUIBankLoginPanel(this, bank));
         display("Login...", 300, 160);
     }
 
     public void showRegister() {
         clear();
-        add(new GUIBankRegisterPanel(this));
+        add(new GUIBankRegisterPanel(this, bank));
         display("Register...", 300, 220);
     }
 }

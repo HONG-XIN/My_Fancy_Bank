@@ -14,6 +14,12 @@ public abstract class PhoneNumber {
         setPhoneNumber(phoneNumber);
     }
 
+    public PhoneNumber(String countryCode) {
+        this.countryCode = countryCode;
+        areaCode = "";
+        phoneNumber = "";
+    }
+
     // accessor functions
     public String getCountryCode() {
         return countryCode;

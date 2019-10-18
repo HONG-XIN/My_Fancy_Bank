@@ -20,14 +20,14 @@ public class BankChargeStandard implements CurrencyAbbrs {
 
     // load data
     public void loadData() {
-        openAccountFee = new Money(USD, 10);
-        closeAccountFee = new Money(USD, 10);
-        checkingDepositFee = new Money(USD, 10);
-        checkingWithdrawFee = new Money(USD, 10);
+        openAccountFee = new Money(CurrencyUSD, 10);
+        closeAccountFee = new Money(CurrencyUSD, 10);
+        checkingDepositFee = new Money(CurrencyUSD, 10);
+        checkingWithdrawFee = new Money(CurrencyUSD, 10);
         savingInterestRate = 0.01;
-        savingInterestLine = new Money(USD, 2000);
+        savingInterestLine = new Money(CurrencyUSD, 2000);
         loanInterestRate = 0.08;
-        loanInterestLine = new Money(USD, 2000);
+        loanInterestLine = new Money(CurrencyUSD, 2000);
         loanInterestRateDefault = 0.04;
     }
 

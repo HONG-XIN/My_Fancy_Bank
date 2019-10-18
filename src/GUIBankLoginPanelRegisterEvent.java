@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
  */
 public class GUIBankLoginPanelRegisterEvent extends GUIBankEvent {
     // constructor
-    public GUIBankLoginPanelRegisterEvent(GUIBankATMFrame frame) {
-        super(frame);
+    public GUIBankLoginPanelRegisterEvent(GUIBankATMFrame frame, Bank bank) {
+        super(frame, bank);
     }
 
     // primary function

@@ -10,6 +10,7 @@ public class Bank implements BankAccountTypes {
     private ArrayList<BankCustomer> customers;
     private BankChargeStandard chargeStandard;
     private MoneyExchangeRate exchangeRate;
+    private BankCustomer customer;
 
     // constructor
     public Bank() {
@@ -24,13 +25,33 @@ public class Bank implements BankAccountTypes {
         exchangeRate = new MoneyExchangeRate();
     }
 
+    // accessor function
+    public BankCustomer getCurrentCustomer() {
+        return customer;
+    }
+
     // primary functions
-    public void registerNewCustomer(String username, String password) {
+    public boolean memberLogin(String username, String password) {
+        // manager login
+
+        // customer login
+        for (BankCustomer c: customers) {
+            if (username.equals(c.getUsername()) && password.equals((c.getPassword()))) {
+                customer = c;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void registerNewCustomer(String username, String password, String email) {
         checkUsername(username);
+        checkEmail(email);
         String customerNumber = generateRandomCustomerNumber();
         BankCustomer newCustomer = new BankCustomer(customerNumber);
         newCustomer.setUsername(username);
         newCustomer.setPassword(password);
+        newCustomer.setEmail(email);
         customers.add(newCustomer);
     }
 
@@ -76,6 +97,58 @@ public class Bank implements BankAccountTypes {
         String toAbbr = customer.getAccountCurrencyAbbrByAccountNumber(accountNumber);
         double fee = getCloseAccountFeeByCurrencyAbbr(toAbbr);
         customer.closeAccount(accountNumber, day, month, year, fee);
+    }
+
+    // Customer functions
+    public void setCustomerPassword(String password) {
+        if (!password.equals(customer.getPassword()))
+            customer.setPassword(password);
+    }
+
+    public void setCustomerEmail(String email) {
+        if (!email.equals(customer.getEmail())) {
+            checkEmail(email);
+            customer.setEmail(email);
+        }
+    }
+
+    public void setCustomerPhone(String phone) {
+        String original = customer.getPhoneNumber();
+        original = original.replaceAll("\\(", "");
+        original = original.replaceAll("\\)", "");
+        original = original.replaceAll("-", "");
+        if (!phone.equals(original))
+            customer.setPhoneNumber(phone);
+    }
+
+    public void setCustomerAddress1(String address1) {
+        if (!address1.equals(customer.getAddressAddress1()))
+            customer.setAddress1(address1);
+    }
+
+    public void setCustomerAddress2(String address2) {
+        if (!address2.equals(customer.getAddressAddress2()))
+            customer.setAddress2(address2);
+    }
+
+    public void setCustomerCity(String city) {
+        if (!city.equals(customer.getAddressCity()))
+            customer.setCity(city);
+    }
+
+    public void setCustomerState(String state) {
+        if (!state.equals(customer.getAddressState()))
+            customer.setState(state);
+    }
+
+    public void setCustomerCountry(String country) {
+        if (!country.equals(customer.getAddressCountry()))
+            customer.setCountry(country);
+    }
+
+    public void setCustomerZipCode(String zipCode) {
+        if (!zipCode.equals(customer.getAddressZipCode()))
+            customer.setZipCode(zipCode);
     }
 
     // helper functions
@@ -127,6 +200,15 @@ public class Bank implements BankAccountTypes {
         for (BankCustomer b: customers) {
             if (username.equals(b.getUsername())) {
                 String alert = String.format("\"%s\" has been used.", username);
+                throw new IllegalArgumentException(alert);
+            }
+        }
+    }
+
+    public void checkEmail(String email) {
+        for (BankCustomer b: customers) {
+            if (email.equals(b.getEmail())) {
+                String alert = String.format("\"%s\" has been used.", email);
                 throw new IllegalArgumentException(alert);
             }
         }

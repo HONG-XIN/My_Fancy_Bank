@@ -3,7 +3,8 @@
  */
 public class Main {
     public static void main(String[] args) {
-        GUIBankATMFrame tf = new GUIBankATMFrame();
+        Bank bank = new Bank();
+        GUIBankATMFrame tf = new GUIBankATMFrame(bank);
         tf.showLogin();
     }
 }

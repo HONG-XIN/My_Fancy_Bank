@@ -98,6 +98,10 @@ public class Member extends Person{
         address.setState(state);
     }
 
+    public void setCountry(String country) {
+        address.setCountry(country);
+    }
+
     public void setZipCode(String zipCode) {
         address.setZipCode(zipCode);
     }

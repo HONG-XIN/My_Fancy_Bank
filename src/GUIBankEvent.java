@@ -5,17 +5,23 @@ import java.awt.event.ActionListener;
  * abstract event class for bank
  */
 public abstract class GUIBankEvent implements ActionListener {
-    // instance variable with private access
+    // instance variables with private access
     private GUIBankATMFrame frame;
+    private Bank bank;
 
     // constructor
-    public GUIBankEvent(GUIBankATMFrame frame) {
+    public GUIBankEvent(GUIBankATMFrame frame, Bank bank) {
         this.frame = frame;
+        this.bank = bank;
     }
 
-    // accessor function
+    // accessor functions
     public GUIBankATMFrame getFrame() {
         return frame;
+    }
+
+    public Bank getBank() {
+        return bank;
     }
 
     // abstract function

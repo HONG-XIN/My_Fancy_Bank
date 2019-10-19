@@ -34,9 +34,9 @@ public class Money {
 
     // mutator functions
     public void setCurrency(String currency) {
-        try {
-            this.currency = (Currency) Class.forName(currency).getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
+        CurrencyFactory currencyFactory = new CurrencyFactory();
+        this.currency = currencyFactory.getCurrency(currency);
+        if (this.currency == null) {
             String alert = String.format("\"%s\" currency is not valid right now.", currency);
             throw new IllegalArgumentException(alert);
         }

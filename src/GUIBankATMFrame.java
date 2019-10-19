@@ -5,12 +5,21 @@ import javax.swing.*;
  */
 public class GUIBankATMFrame extends JFrame {
     // instance variable with private access
-    private Bank bank;
+    private BankCustomer customer;
 
     // constructor
-    public GUIBankATMFrame(Bank bank) {
-        this.bank = bank;
+    public GUIBankATMFrame() {
         setAttributes();
+    }
+
+    // accessor function
+    public BankCustomer getCustomer() {
+        return customer;
+    }
+
+    // mutator function
+    public void setCustomer(BankCustomer customer) {
+        this.customer = customer;
     }
 
     // other functions
@@ -35,13 +44,13 @@ public class GUIBankATMFrame extends JFrame {
     // show contents
     public void showLogin() {
         clear();
-        add(new GUIBankLoginPanel(this, bank));
+        add(new GUIBankLoginPanel(this));
         display("Login...", 300, 160);
     }
 
     public void showRegister() {
         clear();
-        add(new GUIBankRegisterPanel(this, bank));
+        add(new GUIBankRegisterPanel(this));
         display("Register...", 300, 220);
     }
 }

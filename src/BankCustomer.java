@@ -73,24 +73,17 @@ public class BankCustomer extends Member implements BankAccountTypes {
             throw new IllegalArgumentException("account number is duplicate.");
         if (value < fee)
             throw new IllegalArgumentException("Deposit is not enough to open an account.");
-        BankAccount b;
-        if (type.equals(CHECKING)) {
-            b = new BankAccountChecking(currency);
-            b.open(day, month, year);
-        } else if (type.equals(SAVING)) {
-            b= new BankAccountSaving(currency);
-            b.open(day, month, year);
-        } else if (type.equals(LOAN)) {
-            b = new BankAccountLoan(currency);
-            b.open(day, month, year);
-        } else {
+        BankAccountFactory bankAccountFactory = new BankAccountFactory();
+        BankAccount bankAccount = bankAccountFactory.getBankAccount(type, currency);
+        if (bankAccount == null) {
             String alert = String.format("\"%s\" type is not configured.", type);
             throw new IllegalArgumentException(alert);
         }
-        b.setAccountNumber(accountNumber);
-        b.addOneTransaction(day, month, year, value, "Customer", "");
-        b.addOneTransaction(day, month, year, fee, "", "Bank");
-        accounts.add(b);
+        bankAccount.open(day, month, day);
+        bankAccount.setAccountNumber(accountNumber);
+        bankAccount.addOneTransaction(day, month, year, value, "Customer", "");
+        bankAccount.addOneTransaction(day, month, year, fee, "", "Bank");
+        accounts.add(bankAccount);
     }
 
     public void depositToAccount(String accountNumber, double value, int day, int month, int year, double fee) {

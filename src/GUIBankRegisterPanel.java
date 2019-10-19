@@ -7,8 +7,8 @@ import java.awt.*;
 public class GUIBankRegisterPanel extends GUIBankPanel {
 
     // constructor
-    public GUIBankRegisterPanel(GUIBankATMFrame frame, Bank bank) {
-        super(frame, bank);
+    public GUIBankRegisterPanel(GUIBankATMFrame frame) {
+        super(frame);
         addElements();
     }
 
@@ -22,7 +22,7 @@ public class GUIBankRegisterPanel extends GUIBankPanel {
         JLabel feedbackLabel = new JLabel();
 
         JButton registerButton = new JButton("REGISTER");
-        GUIBankRegisterPanelRegisterEvent registerEvent = new GUIBankRegisterPanelRegisterEvent(getFrame(), getBank());
+        GUIBankRegisterPanelRegisterEvent registerEvent = new GUIBankRegisterPanelRegisterEvent(getFrame());
         registerEvent.setUsernameField(usernameField);
         registerEvent.setEmailField(emailField);
         registerEvent.setPasswordField(passwordField);
@@ -31,7 +31,7 @@ public class GUIBankRegisterPanel extends GUIBankPanel {
         registerButton.addActionListener(registerEvent);
 
         JButton loginButton = new JButton("LOGIN");
-        GUIBankRegisterPanelLoginEvent loginEvent = new GUIBankRegisterPanelLoginEvent(getFrame(), getBank());
+        GUIBankRegisterPanelLoginEvent loginEvent = new GUIBankRegisterPanelLoginEvent(getFrame());
         loginButton.addActionListener(loginEvent);
 
         setLayout(new GridLayout(6, 2));

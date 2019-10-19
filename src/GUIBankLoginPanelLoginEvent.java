@@ -12,8 +12,8 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
     private JLabel feedbackLabel;
 
     // constructor
-    public GUIBankLoginPanelLoginEvent(GUIBankATMFrame frame, Bank bank) {
-        super(frame, bank);
+    public GUIBankLoginPanelLoginEvent(GUIBankATMFrame frame) {
+        super(frame);
     }
 
     // mutator functions
@@ -34,10 +34,12 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
         System.out.println("LOGIN button clicked.");
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
-        Bank bank = getBank();
-        if (bank.memberLogin(username, password)) {
+        Bank bank = Bank.getInstance();
+        BankCustomer customer = bank.memberLogin(username, password);
+        if (customer != null) {
             feedbackLabel.setText("Success!");
             feedbackLabel.setForeground(Color.GREEN);
+            getFrame().setCustomer(customer);
         } else {
             feedbackLabel.setText("Invalid password!");
             feedbackLabel.setForeground(Color.RED);

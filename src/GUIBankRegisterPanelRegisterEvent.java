@@ -14,8 +14,8 @@ public class GUIBankRegisterPanelRegisterEvent extends GUIBankEvent {
     private JLabel feedbackLabel;
 
     // constructor
-    public GUIBankRegisterPanelRegisterEvent(GUIBankATMFrame frame, Bank bank) {
-        super(frame, bank);
+    public GUIBankRegisterPanelRegisterEvent(GUIBankATMFrame frame) {
+        super(frame);
     }
 
     // mutator function
@@ -45,7 +45,7 @@ public class GUIBankRegisterPanelRegisterEvent extends GUIBankEvent {
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
         String password2 = password2Field.getText().trim();
-        Bank bank = getBank();
+        Bank bank = Bank.getInstance();
         if (!password.equals(password2)) {
             feedbackLabel.setText("Passwords must match!");
             feedbackLabel.setForeground(Color.RED);

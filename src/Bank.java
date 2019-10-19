@@ -3,17 +3,20 @@ import java.util.Random;
 
 /**
  * stand for a bank
+ * make bank as a singleton class
  */
 public class Bank implements BankAccountTypes {
+    // private static instance variable
+    private static Bank bank_instance = null;
+
     // instance variables with private access
     private BankManager manager;
     private ArrayList<BankCustomer> customers;
     private BankChargeStandard chargeStandard;
     private MoneyExchangeRate exchangeRate;
-    private BankCustomer customer;
 
-    // constructor
-    public Bank() {
+    // private constructor
+    private Bank() {
         loadData();
     }
 
@@ -26,22 +29,23 @@ public class Bank implements BankAccountTypes {
     }
 
     // accessor function
-    public BankCustomer getCurrentCustomer() {
-        return customer;
+    public static Bank getInstance() {
+        if (bank_instance == null)
+            bank_instance = new Bank();
+        return bank_instance;
     }
 
     // primary functions
-    public boolean memberLogin(String username, String password) {
+    public BankCustomer memberLogin(String username, String password) {
         // manager login
 
         // customer login
-        for (BankCustomer c: customers) {
-            if (username.equals(c.getUsername()) && password.equals((c.getPassword()))) {
-                customer = c;
-                return true;
+        for (BankCustomer customer: customers) {
+            if (username.equals(customer.getUsername()) && password.equals((customer.getPassword()))) {
+                return customer;
             }
         }
-        return false;
+        return null;
     }
 
     public void registerNewCustomer(String username, String password, String email) {
@@ -100,19 +104,19 @@ public class Bank implements BankAccountTypes {
     }
 
     // Customer functions
-    public void setCustomerPassword(String password) {
+    public void setCustomerPassword(BankCustomer customer, String password) {
         if (!password.equals(customer.getPassword()))
             customer.setPassword(password);
     }
 
-    public void setCustomerEmail(String email) {
+    public void setCustomerEmail(BankCustomer customer, String email) {
         if (!email.equals(customer.getEmail())) {
             checkEmail(email);
             customer.setEmail(email);
         }
     }
 
-    public void setCustomerPhone(String phone) {
+    public void setCustomerPhone(BankCustomer customer, String phone) {
         String original = customer.getPhoneNumber();
         original = original.replaceAll("\\(", "");
         original = original.replaceAll("\\)", "");
@@ -121,32 +125,32 @@ public class Bank implements BankAccountTypes {
             customer.setPhoneNumber(phone);
     }
 
-    public void setCustomerAddress1(String address1) {
+    public void setCustomerAddress1(BankCustomer customer, String address1) {
         if (!address1.equals(customer.getAddressAddress1()))
             customer.setAddress1(address1);
     }
 
-    public void setCustomerAddress2(String address2) {
+    public void setCustomerAddress2(BankCustomer customer, String address2) {
         if (!address2.equals(customer.getAddressAddress2()))
             customer.setAddress2(address2);
     }
 
-    public void setCustomerCity(String city) {
+    public void setCustomerCity(BankCustomer customer, String city) {
         if (!city.equals(customer.getAddressCity()))
             customer.setCity(city);
     }
 
-    public void setCustomerState(String state) {
+    public void setCustomerState(BankCustomer customer, String state) {
         if (!state.equals(customer.getAddressState()))
             customer.setState(state);
     }
 
-    public void setCustomerCountry(String country) {
+    public void setCustomerCountry(BankCustomer customer, String country) {
         if (!country.equals(customer.getAddressCountry()))
             customer.setCountry(country);
     }
 
-    public void setCustomerZipCode(String zipCode) {
+    public void setCustomerZipCode(BankCustomer customer, String zipCode) {
         if (!zipCode.equals(customer.getAddressZipCode()))
             customer.setZipCode(zipCode);
     }

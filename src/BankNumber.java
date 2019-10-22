@@ -45,7 +45,6 @@ public class BankNumber {
     public static String generateRandomNumber() {
         Random rand = new Random();
         int numberInt = rand.nextInt(1000000000);
-        String number = String.valueOf(numberInt);
-        return number;
+        return String.format("%09d", numberInt);
     }
 }

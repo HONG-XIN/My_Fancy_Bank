@@ -16,7 +16,7 @@ public class GUIBankLoginPanel extends GUIBankPanel {
         JTextField usernameField = new JTextField();
         JTextField passwordField = new JTextField();
 
-        JLabel feedbackLabel = new JLabel();
+        JLabel feedbackLabel = new JLabel(" ");
 
         JButton loginButton = new JButton("LOGIN");
         GUIBankLoginPanelLoginEvent loginEvent = new GUIBankLoginPanelLoginEvent(getFrame());
@@ -25,18 +25,60 @@ public class GUIBankLoginPanel extends GUIBankPanel {
         loginEvent.setFeedbackLabel(feedbackLabel);
         loginButton.addActionListener(loginEvent);
 
-        JButton registerButton = new JButton("REGISTER");
+        JLabel registerLabel = new JLabel("REGISTER");
+        registerLabel.setForeground(Color.BLUE);
         GUIBankLoginPanelRegisterEvent registerEvent = new GUIBankLoginPanelRegisterEvent(getFrame());
-        registerButton.addActionListener(registerEvent);
+        registerLabel.addMouseListener(registerEvent);
 
-        setLayout(new GridLayout(4, 2));
-        add(new JLabel("User Name:"));
-        add(usernameField);
-        add(new JLabel("Password:"));
-        add(passwordField);
-        add(feedbackLabel);
-        add(loginButton);
-        add(new JLabel());
-        add(registerButton);
+        setLayout(new GridBagLayout());
+        setPreferredSize(new Dimension(600, 500));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(new JLabel("User name"), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(new JLabel("Password"), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(feedbackLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(loginButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(new JLabel("Not have an account? "), gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(registerLabel, gbc);
     }
 }

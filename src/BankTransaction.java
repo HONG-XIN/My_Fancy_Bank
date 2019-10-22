@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 /**
  * stand for one single bank transaction
  */
@@ -21,12 +23,26 @@ public class BankTransaction {
     }
 
     // accessor functions
+    public String getDate() {
+        return transactionDate.toString();
+    }
+
     public double getAmount() {
         return amount;
     }
 
+    public String getAmountStr() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(amount);
+    }
+
     public double getAvailable() {
         return available;
+    }
+
+    public String getAvailableStr() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(available);
     }
 
     public String getFrom() {
@@ -43,9 +59,9 @@ public class BankTransaction {
     }
 
     public void setCurrency(String currency) {
-        try {
-            this.currency = (Currency) Class.forName(currency).getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
+        CurrencyFactory currencyFactory = new CurrencyFactory();
+        this.currency = currencyFactory.getCurrency(currency);
+        if (this.currency == null) {
             String alert = String.format("\"%s\" currency is not valid right now.", currency);
             throw new IllegalArgumentException(alert);
         }

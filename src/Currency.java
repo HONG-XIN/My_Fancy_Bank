@@ -5,18 +5,24 @@ public class Currency {
     // instance variables with private access
     private String abbr;
     private String details;
+    private String type;
 
     // constructors
-    public Currency(String abbr, String details) {
+    public Currency(String abbr, String details, String type) {
         this.abbr    = abbr;
         this.details = details;
+        this.type = type;
     }
 
     public Currency() {
-        this("", "");
+        this("", "", "");
     }
 
     // accessor functions
+    public String getType() {
+        return type;
+    }
+
     public String getAbbr() {
         return abbr;
     }

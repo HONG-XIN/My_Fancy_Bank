@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,6 +36,87 @@ public class Bank implements BankAccountTypes {
         return bank_instance;
     }
 
+    public String getCustomerNumberByCustomer(BankCustomer customer) {
+        return customer.getCustomerNumber();
+    }
+
+    public String getUsernameByCustomer(BankCustomer customer) {
+        return customer.getUsername();
+    }
+
+    public String getPasswordByCustomer(BankCustomer customer) {
+        return customer.getPassword();
+    }
+
+    public String getEmailByCustomer(BankCustomer customer) {
+        return customer.getEmail();
+    }
+
+    public String getPhoneByCustomer(BankCustomer customer) {
+        return customer.getPhoneNumber();
+    }
+
+    public String getAddress1ByCustomer(BankCustomer customer) {
+        return customer.getAddressAddress1();
+    }
+
+    public String getAddress2ByCustomer(BankCustomer customer) {
+        return customer.getAddressAddress2();
+    }
+
+    public String getCityByCustomer(BankCustomer customer) {
+        return customer.getAddressCity();
+    }
+
+    public String getStateByCustomer(BankCustomer customer) {
+        return customer.getAddressState();
+    }
+
+    public String getZipCodeByCustomer(BankCustomer customer) {
+        return customer.getAddressZipCode();
+    }
+
+    public String getCountryByCustomer(BankCustomer customer) {
+        return customer.getAddressCountry();
+    }
+
+    public ArrayList<String> getAllAccountNumbersByCustomer(BankCustomer customer) {
+        return customer.getAllAccountNumbers();
+    }
+
+    public String getAccountTypeByCustomerAccountNumber(BankCustomer customer, String accountNumber) {
+        return customer.getAccountTypeByAccountNumber(accountNumber);
+    }
+
+    public String getAccountCurrencyAbbrByCustomerAccountNumber(BankCustomer customer, String accountNumber) {
+        return customer.getAccountCurrencyAbbrByAccountNumber(accountNumber);
+    }
+
+    public double getAccountBalanceByCustomerAccountNumber(BankCustomer customer, String accountNumber) {
+        return customer.getAccountBalanceByAccountNumber(accountNumber);
+    }
+
+    public String getRoutingNumberByCustomerAccountNumber(BankCustomer customer, String accountNumber) {
+        return customer.getRoutingNumberByAccountNumber(accountNumber);
+    }
+
+    public void setRoutingNumberByCustomerAccountNumber(BankCustomer customer, String accountNumber, String routingNumber) {
+        customer.setRoutingNumberByAccountNumber(accountNumber, routingNumber);
+    }
+
+    public String getOpenDateByCustomerAccountNumber(BankCustomer customer, String accountNumber) {
+        return customer.getOpenDateByAccountNumber(accountNumber);
+    }
+
+    public String getLastUpdateDateByCustomerAccountNumber(BankCustomer customer, String accountNumber) {
+        return customer.getLastUpdateDateByAccountNumber(accountNumber);
+    }
+
+    public String[][] getTransactionHistoryByCustomerAccountNumber(BankCustomer customer,
+                                                                                     String accountNumber) {
+        return customer.getTransactionHistoryByAccountNumber(accountNumber);
+    }
+
     // primary functions
     public BankCustomer memberLogin(String username, String password) {
         // manager login
@@ -68,11 +150,12 @@ public class Bank implements BankAccountTypes {
         throw new IllegalArgumentException(alert);
     }
 
-    public void openAccount(BankCustomer customer, String type, String currency,
+    public String openAccount(BankCustomer customer, String type, String currency,
                             double value, int day, int month, int year) {
         double fee = getOpenAccountFeeByCurrency(currency);
         String accountNumber = generateRandomAccountNumber();
         customer.openAccount(accountNumber, type, currency, value, day, month, year, fee);
+        return accountNumber;
     }
 
     public void depositToAccount(BankCustomer customer, String accountNumber,
@@ -101,6 +184,35 @@ public class Bank implements BankAccountTypes {
         String toAbbr = customer.getAccountCurrencyAbbrByAccountNumber(accountNumber);
         double fee = getCloseAccountFeeByCurrencyAbbr(toAbbr);
         customer.closeAccount(accountNumber, day, month, year, fee);
+    }
+
+    public void transferValue(BankCustomer customer, String fromAccountNumber, String toAccountNumber,
+                              double value, int day, int month, int year) {
+        BankCustomer customer2 = null;
+        for (BankCustomer each: customers) {
+            if (!each.checkEligibleAccountNumber(toAccountNumber)) {
+                customer2 = each;
+                break;
+            }
+        }
+        if (customer2 == null) {
+            String alert = String.format("Cannot find account number \"%s\".", toAccountNumber);
+            throw new IllegalArgumentException(alert);
+        }
+        String type = customer.getAccountTypeByAccountNumber(fromAccountNumber);
+        if (type.equals(LOAN)) {
+            throw new IllegalArgumentException("Cannot transfer from LOAN account.");
+        }
+        String type2 = customer2.getAccountTypeByAccountNumber(toAccountNumber);
+        if (type2.equals(LOAN)) {
+            throw new IllegalArgumentException("Cannot transfer into LOAN account.");
+        }
+        String toAbbr = customer.getAccountCurrencyAbbrByAccountNumber(fromAccountNumber);
+        double fee = getTransferFeeByCurrencyAbbr(toAbbr);
+        customer.transferFromAccount(fromAccountNumber, value, day, month, year, fee, toAccountNumber);
+        String abbr2 = customer2.getAccountCurrencyAbbrByAccountNumber(toAccountNumber);
+        double value2 = exchangeRate.calculate(value, toAbbr, abbr2);
+        customer2.transferIntoAccount(toAccountNumber, value2, day, month, year, fromAccountNumber);
     }
 
     // Customer functions
@@ -159,10 +271,10 @@ public class Bank implements BankAccountTypes {
     public String generateRandomCustomerNumber() {
         Random rand = new Random();
         int numberInt = rand.nextInt(1000000000);
-        String number = String.valueOf(numberInt);
+        String number = String.format("%09d", numberInt);
         while (!checkCustomerNumber(number)) {
             numberInt = rand.nextInt(1000000000);
-            number = String.valueOf(numberInt);
+            number = String.format("%09d", numberInt);
         }
         return number;
     }
@@ -190,6 +302,12 @@ public class Bank implements BankAccountTypes {
     public double getCheckingWithdrawFeeByCurrencyAbbr(String toAbbr) {
         double fee = chargeStandard.getCheckingWithdrawFeeValue();
         String fromAbbr = chargeStandard.getCheckingWithdrawFeeAbbr();
+        return exchangeRate.calculate(fee, fromAbbr, toAbbr);
+    }
+
+    public double getTransferFeeByCurrencyAbbr(String toAbbr) {
+        double fee = chargeStandard.getTransferFeeValue();
+        String fromAbbr = chargeStandard.getTransferFeeAbbr();
         return exchangeRate.calculate(fee, fromAbbr, toAbbr);
     }
 

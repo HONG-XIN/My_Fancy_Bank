@@ -8,6 +8,6 @@ public class CurrencyUSD extends Currency {
 
     // constructors
     public CurrencyUSD() {
-        super(ABBR, DETAILS);
+        super(ABBR, DETAILS, "CurrencyUSD");
     }
 }

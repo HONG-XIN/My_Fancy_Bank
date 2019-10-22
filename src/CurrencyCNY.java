@@ -8,6 +8,6 @@ public class CurrencyCNY extends Currency {
 
     // constructors
     public CurrencyCNY() {
-        super(ABBR, DETAILS);
+        super(ABBR, DETAILS, "CurrencyCNY");
     }
 }

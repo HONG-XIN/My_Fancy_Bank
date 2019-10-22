@@ -7,6 +7,7 @@ public class BankChargeStandard implements CurrencyAbbrs {
     private Money closeAccountFee;
     private Money checkingDepositFee;
     private Money checkingWithdrawFee;
+    private Money transferFee;
     private double savingInterestRate;
     private Money savingInterestLine;
     private double loanInterestRate;
@@ -24,6 +25,7 @@ public class BankChargeStandard implements CurrencyAbbrs {
         closeAccountFee = new Money(CurrencyUSD, 10);
         checkingDepositFee = new Money(CurrencyUSD, 10);
         checkingWithdrawFee = new Money(CurrencyUSD, 10);
+        transferFee = new Money(CurrencyUSD, 10);
         savingInterestRate = 0.01;
         savingInterestLine = new Money(CurrencyUSD, 2000);
         loanInterestRate = 0.08;
@@ -54,6 +56,14 @@ public class BankChargeStandard implements CurrencyAbbrs {
 
     public String getCheckingWithdrawFeeAbbr() {
         return checkingWithdrawFee.getCurrencyAbbr();
+    }
+
+    public double getTransferFeeValue() {
+        return transferFee.getAmount();
+    }
+
+    public String getTransferFeeAbbr() {
+        return transferFee.getCurrencyAbbr();
     }
 
     public double getCloseAccountFeeValue() {

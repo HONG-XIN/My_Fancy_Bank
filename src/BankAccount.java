@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * stand for a bank account
  */
@@ -53,6 +55,10 @@ public class BankAccount implements BankAccountTypes {
         return balance.getCurrency();
     }
 
+    public String getCurrencyType() {
+        return balance.getCurrencyType();
+    }
+
     public String getOpenDate() {
         return openDate.toString();
     }
@@ -63,6 +69,10 @@ public class BankAccount implements BankAccountTypes {
 
     public String getType() {
         return type;
+    }
+
+    public String[][] getTransactionHistory() {
+        return transactions.getData();
     }
 
     // mutator functions
@@ -86,11 +96,11 @@ public class BankAccount implements BankAccountTypes {
         checkFromTo(from, to);
         if (!from.equals("")) {
             double available = getBalance() + amount;
-            transactions.addNewTransaction(day, month, year, getCurrency(), amount, available, from , to);
+            transactions.addNewTransaction(day, month, year, getCurrencyType(), amount, available, from , to);
             addBalance(amount);
         } else {
             double available = getBalance() - amount;
-            transactions.addNewTransaction(day, month, year, getCurrency(), amount, available, from , to);
+            transactions.addNewTransaction(day, month, year, getCurrencyType(), amount, available, from , to);
             deductBalance(amount);
         }
         setLastUpdateDate(day, month, year);
@@ -101,7 +111,7 @@ public class BankAccount implements BankAccountTypes {
     }
 
     public void setLastUpdateDate(int day, int month, int year) {
-        openDate.setDate(day, month, year);
+        lastUpdateDate.setDate(day, month, year);
     }
 
     public void setType(String type) {

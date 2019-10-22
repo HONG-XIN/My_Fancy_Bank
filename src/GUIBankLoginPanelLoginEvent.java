@@ -31,7 +31,6 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
 
     // primary functions
     public void actionPerformed(ActionEvent e) {
-        System.out.println("LOGIN button clicked.");
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
         Bank bank = Bank.getInstance();
@@ -40,6 +39,7 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
             feedbackLabel.setText("Success!");
             feedbackLabel.setForeground(Color.GREEN);
             getFrame().setCustomer(customer);
+            getFrame().showCustomer();
         } else {
             feedbackLabel.setText("Invalid password!");
             feedbackLabel.setForeground(Color.RED);

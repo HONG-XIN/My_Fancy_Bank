@@ -1,17 +1,20 @@
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * event when user clicks REGISTER button in register panel
  */
-public class GUIBankRegisterPanelLoginEvent extends GUIBankEvent {
+public class GUIBankRegisterPanelLoginEvent extends MouseAdapter {
+    // instance variable with private access
+    private GUIBankATMFrame frame;
+
     // constructor
     public GUIBankRegisterPanelLoginEvent(GUIBankATMFrame frame) {
-        super(frame);
+        this.frame = frame;
     }
 
     // primary function
-    public void actionPerformed(ActionEvent e) {
-        GUIBankATMFrame frame = getFrame();
+    public void mouseClicked(MouseEvent e) {
         frame.showLogin();
     }
 }

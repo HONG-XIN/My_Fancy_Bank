@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.Random;
 
 /**
  * the main window for bank ATM
@@ -6,15 +7,21 @@ import javax.swing.*;
 public class GUIBankATMFrame extends JFrame {
     // instance variable with private access
     private BankCustomer customer;
+    private String routingNumber;
 
     // constructor
     public GUIBankATMFrame() {
         setAttributes();
+        generateRoutingNumber();
     }
 
     // accessor function
     public BankCustomer getCustomer() {
         return customer;
+    }
+
+    public String getRoutingNumber() {
+        return routingNumber;
     }
 
     // mutator function
@@ -25,14 +32,13 @@ public class GUIBankATMFrame extends JFrame {
     // other functions
     public void setAttributes() {
         setTitle("Bank ATM");
-        setSize(500, 500);
+        setSize(800, 600);
         setLocation(200, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void display(String title, int width, int height) {
+    public void display(String title) {
         setTitle(title);
-        setSize(width, height);
         setVisible(true);
     }
 
@@ -41,16 +47,29 @@ public class GUIBankATMFrame extends JFrame {
         repaint();
     }
 
+    public void generateRoutingNumber() {
+        Random rand = new Random();
+        int numberInt = rand.nextInt(1000000000);
+        routingNumber = String.format("%09d", numberInt);
+    }
+
     // show contents
     public void showLogin() {
         clear();
         add(new GUIBankLoginPanel(this));
-        display("Login...", 300, 160);
+        display("Login...");
     }
 
     public void showRegister() {
         clear();
         add(new GUIBankRegisterPanel(this));
-        display("Register...", 300, 220);
+        display("Register...");
+    }
+
+    public void showCustomer() {
+        clear();
+        add(new GUIBankCustomerPanel(this));
+        Bank bank = Bank.getInstance();
+        display("Hi "+bank.getUsernameByCustomer(customer));
     }
 }

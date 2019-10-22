@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +21,29 @@ public class BankCustomer extends Member implements BankAccountTypes {
         return customerNumber;
     }
 
+    public ArrayList<String> getAllAccountNumbers() {
+        ArrayList<String> allAccountNumbers = new ArrayList<>();
+        for (BankAccount bankAccount: accounts)
+            allAccountNumbers.add(bankAccount.getAccountNumber());
+        return allAccountNumbers;
+    }
+
     public BankAccount getAccountByAccountNumber(String accountNumber) {
         for (BankAccount b: accounts)
             if (accountNumber.equals(b.getAccountNumber()))
                 return b;
         String alert = String.format("\"%s\" is not found in this customer.", accountNumber);
         throw new IllegalArgumentException(alert);
+    }
+
+    public String getRoutingNumberByAccountNumber(String accountNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        return bankAccount.getRoutingNumber();
+    }
+
+    public void setRoutingNumberByAccountNumber(String accountNumber, String routingNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        bankAccount.setRoutingNumber(routingNumber);
     }
 
     public String getAccountCurrencyAbbrByAccountNumber(String accountNumber) {
@@ -43,10 +61,25 @@ public class BankCustomer extends Member implements BankAccountTypes {
         return b.getBalance();
     }
 
+    public String getOpenDateByAccountNumber(String accountNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        return bankAccount.getOpenDate();
+    }
+
+    public String getLastUpdateDateByAccountNumber(String accountNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        return bankAccount.getLastUpdateDate();
+    }
+
+    public String[][] getTransactionHistoryByAccountNumber(String accountNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        return bankAccount.getTransactionHistory();
+    }
+
     // mutator function
     public void setCustomerNumber(String number) {
         checkCustomerNumber(number);
-        this.customerNumber = customerNumber;
+        this.customerNumber = number;
     }
 
     // check function
@@ -79,7 +112,7 @@ public class BankCustomer extends Member implements BankAccountTypes {
             String alert = String.format("\"%s\" type is not configured.", type);
             throw new IllegalArgumentException(alert);
         }
-        bankAccount.open(day, month, day);
+        bankAccount.open(day, month, year);
         bankAccount.setAccountNumber(accountNumber);
         bankAccount.addOneTransaction(day, month, year, value, "Customer", "");
         bankAccount.addOneTransaction(day, month, year, fee, "", "Bank");
@@ -114,6 +147,23 @@ public class BankCustomer extends Member implements BankAccountTypes {
         b.addOneTransaction(day, month, year, balance-fee, "", "Customer");
         b.addOneTransaction(day, month, year, fee, "", "Bank");
         accounts.remove(b);
+    }
+
+    public void transferFromAccount(String accountNumber, double value, int day, int month,
+                                    int year, double fee, String otherAccountNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        double balance = bankAccount.getBalance();
+        if (balance < value + fee)
+            throw new IllegalArgumentException("Don't have enough money to make this transfer.");
+        bankAccount.addOneTransaction(day, month, year, value, "", otherAccountNumber);
+        if (fee > 0)
+            bankAccount.addOneTransaction(day, month, year, fee, "", "Bank");
+    }
+
+    public void transferIntoAccount(String accountNumber, double value, int day, int month,
+                                    int year, String otherAccountNumber) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        bankAccount.addOneTransaction(day, month, year, value, otherAccountNumber, "");
     }
 
     // check function

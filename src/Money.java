@@ -20,6 +20,10 @@ public class Money {
     }
 
     // accessor functions
+    public String getCurrencyType() {
+        return currency.getType();
+    }
+
     public String getCurrencyAbbr() {
         return currency.getAbbr();
     }

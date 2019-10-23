@@ -1,7 +1,8 @@
 /**
- * one specific currency
+ * One specific currency.
+ * "Type" is the name of a children class.
  */
-public class Currency {
+public class Currency implements CurrencyTypes {
     // instance variables with private access
     private String abbr;
     private String details;
@@ -11,7 +12,7 @@ public class Currency {
     public Currency(String abbr, String details, String type) {
         this.abbr    = abbr;
         this.details = details;
-        this.type = type;
+        this.type    = type;
     }
 
     public Currency() {
@@ -19,16 +20,16 @@ public class Currency {
     }
 
     // accessor functions
-    public String getType() {
-        return type;
-    }
-
     public String getAbbr() {
         return abbr;
     }
 
     public String getDetails() {
         return details;
+    }
+
+    public String getType() {
+        return type;
     }
 
     // mutator functions
@@ -38,6 +39,10 @@ public class Currency {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     // override function

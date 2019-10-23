@@ -38,6 +38,7 @@ public class Money implements CurrencyTypes {
 
     // mutator functions
     public void setCurrency(String currency) {
+        assert CurrencyTypes.isCurrencyTypeValid(currency): "Currency type not valid.";
         CurrencyFactory currencyFactory = new CurrencyFactory();
         this.currency = currencyFactory.getCurrency(currency);
         if (this.currency == null) {
@@ -57,5 +58,30 @@ public class Money implements CurrencyTypes {
 
     public void deductAmount(double value) {
         amount -= value;
+    }
+
+    public void changeCurrencyType(String newCurrencyType) {
+        String oldCurrencyType = getCurrencyType();
+        CurrencyExchangeRate exchangeRate = CurrencyExchangeRate.getInstance();
+        double rate = exchangeRate.getRate(oldCurrencyType, newCurrencyType);
+        setCurrency(newCurrencyType);
+        amount *= rate;
+    }
+
+    public void addMoney(Money newMoney) {
+        String toCurrencyType = getCurrencyType();
+        amount += newMoney.getAmountByCurrencyType(toCurrencyType);
+    }
+
+    public void deductMoney(Money newMoney) {
+        String toCurrencyType = getCurrencyType();
+        amount -= newMoney.getAmountByCurrencyType(toCurrencyType);
+    }
+
+    public double getAmountByCurrencyType(String newCurrencyType) {
+        String oldCurrencyType = getCurrencyType();
+        CurrencyExchangeRate exchangeRate = CurrencyExchangeRate.getInstance();
+        double rate = exchangeRate.getRate(oldCurrencyType, newCurrencyType);
+        return getAmount() * rate;
     }
 }

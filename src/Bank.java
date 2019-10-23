@@ -30,6 +30,10 @@ public class Bank implements BankAccountTypes {
     }
 
     // accessor function
+    public ArrayList<BankCustomer> getCustomers() {
+        return customers;
+    }
+
     public static Bank getInstance() {
         if (bank_instance == null)
             bank_instance = new Bank();
@@ -118,6 +122,51 @@ public class Bank implements BankAccountTypes {
     }
 
     // primary functions
+    public void increaseSaving(int day, int month, int year) {
+        for (BankCustomer customer: customers) {
+            ArrayList<String> allAccountNumbers = getAllAccountNumbersByCustomer(customer);
+            for (String accountNumber: allAccountNumbers) {
+                String type = getAccountTypeByCustomerAccountNumber(customer, accountNumber);
+                if (type.equals(SAVING)) {
+                    double balanceAmount = getAccountBalanceByCustomerAccountNumber(customer, accountNumber);
+                    double rate = chargeStandard.getSavingInterestRate();
+                    double tax = balanceAmount * rate;
+                    customer.addInterest(accountNumber, tax, day, month, year);
+                }
+            }
+        }
+    }
+
+    public void increaseLoan(int day, int month, int year) {
+        for (BankCustomer customer: customers) {
+            ArrayList<String> allAccountNumbers = getAllAccountNumbersByCustomer(customer);
+            for (String accountNumber: allAccountNumbers) {
+                String type = getAccountTypeByCustomerAccountNumber(customer, accountNumber);
+                if (type.equals(LOAN)) {
+                    double balanceAmount = getAccountBalanceByCustomerAccountNumber(customer, accountNumber);
+                    double rate = chargeStandard.getLoanInterestRate();
+                    double tax = balanceAmount * rate;
+                    customer.addInterest(accountNumber, tax, day, month, year);
+                }
+            }
+        }
+    }
+
+
+    public void setManager(String username, String password, String email) {
+        checkUsername(username);
+        checkEmail(email);
+        manager = new BankManager();
+        manager.setUsername(username);
+        manager.setPassword(password);
+        manager.setEmail(email);
+    }
+
+    public boolean checkManager(String username, String password) {
+        return username.equals(manager.getUsername()) && password.equals(manager.getPassword());
+    }
+
+
     public BankCustomer memberLogin(String username, String password) {
         // manager login
 

@@ -34,15 +34,23 @@ public class GUIBankLoginPanelLoginEvent extends GUIBankEvent {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
         Bank bank = Bank.getInstance();
-        BankCustomer customer = bank.memberLogin(username, password);
-        if (customer != null) {
+        if (bank.checkManager(username, password)) {
             feedbackLabel.setText("Success!");
             feedbackLabel.setForeground(Color.GREEN);
-            getFrame().setCustomer(customer);
-            getFrame().showCustomer();
+            getFrame().showManager();
         } else {
-            feedbackLabel.setText("Invalid password!");
-            feedbackLabel.setForeground(Color.RED);
+
+            BankCustomer customer = bank.memberLogin(username, password);
+            if (customer != null) {
+                feedbackLabel.setText("Success!");
+                feedbackLabel.setForeground(Color.GREEN);
+                getFrame().setCustomer(customer);
+                getFrame().showCustomer();
+            } else {
+                feedbackLabel.setText("Invalid password!");
+                feedbackLabel.setForeground(Color.RED);
+            }
         }
+
     }
 }

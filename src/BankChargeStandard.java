@@ -74,4 +74,12 @@ public class BankChargeStandard implements CurrencyAbbrs {
         return closeAccountFee.getCurrencyAbbr();
     }
 
+    public double getSavingInterestRate() {
+        return savingInterestRate;
+    }
+
+    public double getLoanInterestRate() {
+        return loanInterestRate;
+    }
+
 }

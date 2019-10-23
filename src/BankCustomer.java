@@ -166,6 +166,11 @@ public class BankCustomer extends Member implements BankAccountTypes {
         bankAccount.addOneTransaction(day, month, year, value, otherAccountNumber, "");
     }
 
+    public void addInterest(String accountNumber, double tax, int day, int month, int year) {
+        BankAccount bankAccount = getAccountByAccountNumber(accountNumber);
+        bankAccount.addOneTransaction(day, month, year, tax, "Bank", "");
+    }
+
     // check function
     public boolean checkEligibleAccountNumber(String number) {
         for (BankAccount b: accounts) {

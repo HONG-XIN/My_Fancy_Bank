@@ -85,13 +85,16 @@ public class GUIBankCustomerPanelAccountsPanelSummaryPanel extends GUIBankPanel 
 
             gbc.gridy += 1;
             gbc.gridx = 0;
+            gbc.weightx = 1;
             add(new JLabel("Routing number"), gbc);
 
             gbc.gridx = 1;
+            gbc.weightx = 1;
             add(new JLabel(bank.getRoutingNumberByCustomerAccountNumber(customer, currentAccountNumber)), gbc);
 
             gbc.gridy += 1;
             gbc.gridx = 0;
+            gbc.weightx = 0;
             add(new JLabel("Account number"), gbc);
 
             gbc.gridx = 1;

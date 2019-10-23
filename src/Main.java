@@ -5,11 +5,10 @@ import java.text.DecimalFormat;
  */
 public class Main {
     public static void main(String[] args) {
-//        String a = String.format("%-8s XXXXX%d %s%s", "Loan", 5555, "$", new DecimalFormat("#.##").format(3.2222));
-//        System.out.println(a);
-
-
         Bank bank = Bank.getInstance();
+
+        bank.setManager("admin", "Admin000", "admin@gmail.com");
+
         bank.registerNewCustomer("dezhouw", "Aa123456", "dezhouw@sina.com");
 
 

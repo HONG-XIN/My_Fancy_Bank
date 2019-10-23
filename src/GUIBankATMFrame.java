@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -71,5 +72,11 @@ public class GUIBankATMFrame extends JFrame {
         add(new GUIBankCustomerPanel(this));
         Bank bank = Bank.getInstance();
         display("Hi "+bank.getUsernameByCustomer(customer));
+    }
+
+    public void showManager() {
+        clear();
+        add(new GUIBankManagerPanel(this));
+        display("Manager...");
     }
 }

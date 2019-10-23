@@ -78,6 +78,15 @@ public class Money implements CurrencyTypes {
         amount -= newMoney.getAmountByCurrencyType(toCurrencyType);
     }
 
+    public void times(int number) {
+        assert number>=0: "Cannot time Money with a negative integer.";
+        double originalValue = amount;
+        amount = 0;
+        for (int i=0; i<number; i++) {
+            amount += originalValue;
+        }
+    }
+
     public double getAmountByCurrencyType(String newCurrencyType) {
         String oldCurrencyType = getCurrencyType();
         CurrencyExchangeRate exchangeRate = CurrencyExchangeRate.getInstance();

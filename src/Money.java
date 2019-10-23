@@ -1,14 +1,14 @@
 /**
- * stand for a money in one certain currency
+ * A bunch of money with value and currency type.
  */
-public class Money {
+public class Money implements CurrencyTypes {
     // instance variables with private access
     private Currency currency;
     private double amount;
 
     // constructor
-    public Money(String currency, double amount) {
-        setCurrency(currency);
+    public Money(String currencyType, double amount) {
+        setCurrency(currencyType);
         setAmount(amount);
     }
 
@@ -16,7 +16,7 @@ public class Money {
      * by default, set currency to be USD and amount to be 0
      */
     public Money() {
-        this("CurrencyUSD", 0);
+        this(USD, 0);
     }
 
     // accessor functions
